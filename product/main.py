@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, render_template_string
 import json
 
 products=[ 
@@ -8,13 +8,15 @@ products=[
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def Get_product():
+@app.route('/products/<int:id>', methods=['GET'])
+def Get_product(id):
     product = 0
     for p in products:
         if p["id"] == id:
             product = p
-    return jsonify("products:",products)
+    if product == 0:
+        return render_template_string('PageNotFound {{errorCode}}', errorCode='404'), 404
+    return jsonify("products:",product)
 
 if __name__ == "__main__":
     app.run(debug = True)
