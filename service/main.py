@@ -8,7 +8,7 @@ werehouse=[
 
 app = Flask(__name__)
 
-@app.route('/service/<int:id>', methods=['GET'])
+@app.route('/services/<int:id>', methods=['GET'])
 def Get_Service(id):
     stan = 0
     for s in werehouse:
@@ -16,6 +16,10 @@ def Get_Service(id):
             stan = s
     if stan == 0:
         return render_template_string('PageNotFound {{errorCode}}', errorCode='404'), 404
+    return jsonify("stan:",stan)
+
+@app.route('/services', methods=['GET'])
+def Get_Services():
     return jsonify("stan:",werehouse)
 
 if __name__ == "__main__":

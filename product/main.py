@@ -18,6 +18,10 @@ def Get_product(id):
         return render_template_string('PageNotFound {{errorCode}}', errorCode='404'), 404
     return jsonify("products:",product)
 
+@app.route('/products', methods=['GET'])
+def Get_products():
+    return jsonify("products:",products)
+
 if __name__ == "__main__":
     app.run(debug = True)
     
