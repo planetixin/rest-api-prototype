@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template, render_template_string
-import json, os
+import json, os, requests
 
 werehouse=[ 
     { "id": 1, "quantify": 4},
@@ -11,9 +11,16 @@ app = Flask(__name__)
 @app.route('/stock/<int:id>', methods=['GET'])
 def Get_Service(id):
     stan = 0
+    try:
+        productRequest = requests.get(url="http://127.0.0.1:8001/{id}")
+    except:
+        return render_template_string('produkt nie istnieje {{errorCode}}', errorCode='404'), 404
+    
+
     for s in werehouse:
         if s["id"] == id:
             stan = s
+
     if stan == 0:
         return render_template_string('produkt nie istnieje {{errorCode}}', errorCode='404'), 404
     return jsonify("stan:",stan)
