@@ -8,7 +8,7 @@ werehouse=[
 
 app = Flask(__name__)
 
-@app.route('/services/<int:id>', methods=['GET'])
+@app.route('/stock/<int:id>', methods=['GET'])
 def Get_Service(id):
     stan = 0
     for s in werehouse:
@@ -18,7 +18,7 @@ def Get_Service(id):
         return render_template_string('produkt nie istnieje {{errorCode}}', errorCode='404'), 404
     return jsonify("stan:",stan)
 
-@app.route('/services', methods=['GET'])
+@app.route('/stock', methods=['GET'])
 def Get_Services():
     return jsonify("stan:",werehouse)
 
