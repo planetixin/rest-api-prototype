@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template, render_template_string
-import json
+import json, os
 
 werehouse=[ 
     { "id": 1, "quantify": 4},
@@ -15,7 +15,7 @@ def Get_Service(id):
         if s["id"] == id:
             stan = s
     if stan == 0:
-        return render_template_string('PageNotFound {{errorCode}}', errorCode='404'), 404
+        return render_template_string('produkt nie istnieje {{errorCode}}', errorCode='404'), 404
     return jsonify("stan:",stan)
 
 @app.route('/services', methods=['GET'])
@@ -23,4 +23,5 @@ def Get_Services():
     return jsonify("stan:",werehouse)
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    port = int(os.environ.get('PORT', 8002))
+    app.run(debug = True, port=port)
