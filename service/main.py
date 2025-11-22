@@ -20,7 +20,7 @@ def Get_Service(id):
 
 @app.route('/stock', methods=['GET'])
 def Get_Services():
-    return jsonify("stan:",werehouse)
+    return jsonify("stock:",werehouse)
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 8002))
